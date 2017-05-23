@@ -1,0 +1,77 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body" id="sms-app">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">短信管理</strong> /
+                <small>短信发送统计</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="table-title">ID</th>
+                            <th class="table-title">门店账号</th>
+                            <th class="table-title">OpenID</th>
+                            <th class="table-title">发送内容</th>
+                            <th class="table-title">包裹编号</th>
+                            <th class="table-title">返回内容</th>
+                            <th class="table-title">时间</th>
+                            <th class="table-title">状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="data_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="data_list" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.username}</a></td>
+
+                                <td>
+                                    {$vo['openid']}
+                                </td>
+                                <td style="width: 420px;">
+                                    <php>
+                                        $send=json_decode($vo['send_json'],true);
+                                    </php>
+                                    {$send['value']}
+                                </td>
+                                <td>
+                                    {$vo['package_id']}
+                                </td>
+                                <php>
+                                    $ret=json_decode($vo['ret_json'],true);
+                                </php>
+                                <td>
+                                    {$ret['errmsg']}
+                                </td>
+                                <td>{$vo.time|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    <eq name="vo.status" value="0">
+                                        <span class="am-badge am-badge-danger">发送失败</span>
+                                    </eq>
+                                    <eq name="vo.status" value="1">
+                                        <span class="am-badge am-badge-success">发送成功</span>
+                                    </eq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="page">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

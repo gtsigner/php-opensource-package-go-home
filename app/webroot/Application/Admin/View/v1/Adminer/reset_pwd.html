@@ -1,0 +1,35 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default" style="margin-top: 20px;">
+                <div class="am-panel-hd">修改密码</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="__SELF__">
+                        <div class="am-form-group">
+                            <label>旧密码</label>
+                            <input type="password" class="form-control" name="old_pwd">
+                        </div>
+                        <div class="am-form-group">
+                            <label class="control-label">新密码：</label>
+                            <input type="password" class="form-control" name="new_pwd">
+                        </div>
+                        <div class="am-form-group">
+                            <label class="control-label">重复密码：</label>
+                            <input type="password" class="form-control" name="new_pwd_re">
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

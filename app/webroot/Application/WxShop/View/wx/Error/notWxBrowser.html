@@ -1,0 +1,35 @@
+<extend name="Common/com"/>
+<block name="style">
+    <style>
+        body {
+            background-color: #f1f1f1;
+        }
+
+        .weui_msg_title {
+            font-weight: 600;
+            font-size: 20px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/0.4.1/weui.css">
+</block>
+<block name="content">
+    <div class="weui_msg">
+        <div class="weui_icon_area">
+            <i class="weui_icon_warn weui_icon_msg"></i>
+        </div>
+        <div class="weui_text_area">
+            <h4 class="weui_msg_title">请在微信客户端打开链接</h4>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ua = navigator.userAgent.toLowerCase();
+        var isWeixin = ua.indexOf('micromessenger') != -1;
+        var isAndroid = ua.indexOf('android') != -1;
+        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+        if (!isWeixin) {
+            window.onload = function () {
+                window.removeLoadBox(1);
+            }
+        }
+    </script>
+</block>

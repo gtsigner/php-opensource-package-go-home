@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="zh-cn">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title></title>
+    <include file="Common/loadingBox"/>
+    <script>
+        var UID = "{$user.uid}";
+    </script>
+    <script data-main="__PUBLIC__/play/js/play-app" src="__PUBLIC__/static/require.js"></script>
+    <link rel="stylesheet" href="/static/weui/weui.css">
+    <link rel="stylesheet" href="/static/layer_mobile/need/layer.css">
+    <block name="head"></block>
+    <style>
+        .weui_media_box.weui_media_appmsg:hover {
+            background-color: #eeeeee;
+        }
+
+        .weui_panel {
+            margin-top: 0px;
+        }
+
+        .icon-refresh:before {
+            content: "\f021";
+        }
+
+        .pull-right {
+            float: right;
+        }
+
+        /*123123*/
+        .weui_panel:before {
+            border-top: 0px;
+            margin-top: 0px;
+        }
+
+        .category-title {
+            font-size: 20px;
+        }
+
+        .danger {
+            color: #e9322d;
+        }
+
+        .info {
+            color: #00a2d4;
+        }
+
+        .success {
+            color: #00B83F;
+        }
+
+        .pull-right {
+            float: right;
+        }
+
+        * {
+            font-family: "Alright Sans LP", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi MicroHei", sans-serif;
+        }
+
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, i, b {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .set-center {
+            margin: auto;
+            top: 50%;
+            bottom: 50%;
+        }
+
+        .nav-bar-fixed-bottom {
+            position: fixed;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <block name="content"></block>
+</div>
+<div class="row" style="width: 100%;height: 100px;display: block"></div>
+<div class="container" id="container">
+    <div class="weui_tabbar nav-bar-fixed-bottom">
+        <a href="/vote/" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="__PUBLIC__/play/images/icon_nav_button.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">投票</p>
+        </a>
+        <a href="http://go.oeynet.com/vote/category/" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="__PUBLIC__/play/images/icon_nav_msg.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">部门</p>
+        </a>
+        <a href="/vote/say/" class="weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="__PUBLIC__/play/images/icon_nav_article.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">吐槽</p>
+        </a>
+        <a href="/user/" class=" weui_tabbar_item">
+            <div class="weui_tabbar_icon">
+                <img src="__PUBLIC__/play/images/icon_nav_cell.png" alt="">
+            </div>
+            <p class="weui_tabbar_label">我的</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

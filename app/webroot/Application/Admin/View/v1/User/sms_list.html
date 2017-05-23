@@ -1,0 +1,74 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">门店管理</strong> /
+                <small>短信使用统计</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-striped am-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="table-check"><input type="checkbox" class="check-all"/></th>
+                            <th class="table-id">ID</th>
+                            <th class="table-type">订单号</th>
+                            <th class="table-title">门店账号</th>
+                            <th class="table-title">门店名称</th>
+                            <th class="table-type">门店地址</th>
+                            <th class="table-date">充值时间</th>
+                            <th class="table-type">总条数</th>
+                            <th class="table-type">剩余数</th>
+                            <th class="table-type">充值方式</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="sms_list" id="vo">
+                            <tr>
+                                <td><input type="checkbox" class="check-item" data-id="{$vo.id}"/></td>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.order_no}</td>
+                                <td><a href="#">{$vo.username}</a></td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.address_desc}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td><strong class="ey-c-red">{$vo.total_count}</strong></td>
+                                <td><strong class="ey-c-red">{$vo.last_count}</strong></td>
+                                <td>
+                                    <eq name="vo.pay_type" value="0">
+                                        <span>管理员充值</span>
+                                    </eq>
+                                    <eq name="vo.pay_type" value="1">
+                                        <span>微信支付</span>
+                                    </eq>
+                                </td>
+                                <td>
+                                    <!---  <div class="am-dropdown" data-am-dropdown>
+                                          <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle"
+                                                  data-am-dropdown-toggle><span class="am-icon-cog"></span> <span
+                                                  class="am-icon-caret-down"></span></button>
+                                          <ul class="am-dropdown-content">
+                                              <li>
+                                                  <a href="{:U('user/edit_user',array('id'=>$vo['id']))}">1. 编辑</a>
+                                              </li>
+                                              <li>
+                                                  <a href="{:U('user/del_user',array('ids'=>$vo['id']))}">3. 删除</a>
+                                              </li>
+                                          </ul>
+                                      </div>--->
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="page text-center">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

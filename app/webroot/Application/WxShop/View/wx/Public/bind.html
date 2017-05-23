@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定手机号</title>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="/libs/weui-1.0/style/weui.min.css">
+    <script src="/libs/seajs-3.0.0/sea.js"></script>
+    <script src="/libs/seajs-3.0.0/sea-plugin.js"></script>
+    <script src="__THEME__/sea-conf.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_vcode">
+            <input type="hidden" name="openid" v-model="bind.openid">
+            <div class="weui-cell__hd">
+                <label class="weui-label">手机号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="tel" v-model="bind.phone" placeholder="请输入手机号">
+            </div>
+            <div class="weui-cell__ft">
+                <button class="weui-vcode-btn" type="button" @click="getVcode">获取验证码 <span v-html="last_time"></span>
+                </button>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">验证码</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="bind.vcode" value="" placeholder="请输入收到的验证码">
+            </div>
+        </div>
+
+    </div>
+    <div class="weui-btn-area">
+        <a @click="sendBind" class="weui-btn weui-btn_primary" href="javascript:">确定绑定</a>
+    </div>
+</div>
+
+<script>
+    seajs.use('layerCss');//css
+    seajs.use(['vue', 'layer'], function () {
+        var vm = new Vue({
+            data: {
+                bind: {
+                    openid: "{:I('openid')}",
+                    phone: '',
+                    vcode: '',
+                },
+                last_time: '',
+
+            },
+            methods: {
+                getVcode: function () {
+                    var indexLayer = 0;
+                    indexLayer = layer.load(2);
+                    $.post("{:U('public/get_bind_code')}", {bind: vm.bind}, function (ret) {
+                        layer.msg(ret.info);
+                        layer.close(indexLayer);
+                    })
+                },
+                sendBind: function () {
+
+                    $.post("{:U('public/bind')}", {bind: vm.bind}, function (ret) {
+                        layer.msg(ret.info);
+                        if (ret.status == 1) {
+                            window.location.href = ret.url;
+                        }
+                    })
+                }
+            }
+        }).$mount("#app");
+
+
+    });
+</script>
+</body>
+</html>

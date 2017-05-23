@@ -1,0 +1,32 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default" style="margin-top: 20px;">
+                <div class="am-panel-hd">添加包裹类型</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="{:U('Config/total')}">
+                        <volist name="data_list" id="vo">
+                            <div class="am-form-group">
+                                <label>
+                                    {$vo.mark}
+                                    <span class="text text-danger" style="font-size: 12px;">（{$vo.extra}）</span>
+                                </label>
+                                <input type="text" class="form-control" name="id[{$vo.id}]" value="{$vo.value}">
+                            </div>
+                        </volist>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">保存提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

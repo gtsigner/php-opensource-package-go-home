@@ -1,0 +1,227 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body" id="package-app">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">包裹管理</strong> /
+                <small>快速查件</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g" style="margin: 10px;">
+            <form action="" class="am-form-inline ey-search-form" role="form">
+                <div class="am-u-sm-12">
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">运单号</label>
+                        <input type="text" name="yun_no"
+                               value="{$search.yun_no}"
+                               class="am-form-field"
+                               placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">联系电话</label>
+                        <input type="text"
+                               name="get_phone"
+                               value="{$search.get_phone}"
+                               class="am-form-field" placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">提货码</label>
+                        <input type="text"
+                               name="get_phone"
+                               value="{$search.get_phone}"
+                               class="am-form-field" placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">收件人姓名</label>
+                        <input type="text" class="am-form-field" placeholder="">
+                    </div>
+                </div>
+                <div class="am-u-sm-12">
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">物流公司</label>
+                        <select name="status" data-am-selected="{btnSize: 'sm'}">
+                            <option value="">查看类别</option>
+                            <option value="0">已到站</option>
+                            <option value="2">移库</option>
+                            <option value="5">已出库</option>
+                        </select>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">包裹状态</label>
+                        <select name="status" data-am-selected="{btnSize: 'sm'}">
+                            <option value="">查看类别</option>
+                            <option value="0">已到站</option>
+                            <option value="2">移库</option>
+                            <option value="5">已出库</option>
+                        </select>
+                    </div>
+                    <div class="am-form-group ey-date-picker">
+                        <label for="" class="am-form-label">开始日期</label>
+                        <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+                            <input type="text"
+                                   name="start_date"
+                                   class="am-form-field" placeholder="开始"
+                                   value="{$search.start_date|default=date('Y-m-d')}">
+                            <span class="am-input-group-btn am-datepicker-add-on">
+                            <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+                            </button>
+                            </span>
+                        </div>
+                        <label for="" class="am-form-label">结束日期</label>
+                        <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+                            <input type="text"
+                                   name="end_date"
+                                   class="am-form-field" placeholder="结束"
+                                   value="{$search.end_date|default=date('Y-m-d')}">
+                            <span class="am-input-group-btn am-datepicker-add-on">
+                            <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+                            </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12">
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">运单号</label>
+                        <input type="text" name="yun_no" value="{$search.yun_no}"
+                               class="am-form-field"
+                               placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">联系电话</label>
+                        <input type="get_phone" class="am-form-field" placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">提货码</label>
+                        <input type="get_phone" class="am-form-field" placeholder="">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="" class="am-form-label">收件人姓名</label>
+                        <input type="get_phone" class="am-form-field" placeholder="">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead style="background: #f6f6f6;">
+                        <tr>
+                            <th class="table-title">门店账号</th>
+                            <th class="table-title">照片</th>
+                            <th class="table-type">包裹运单号</th>
+                            <th class="table-type">收件人</th>
+                            <th class="table-type">房号</th>
+                            <th class="table-type">包裹类型</th>
+                            <th class="table-date">入库日期</th>
+                            <th class="table-date">出库日期</th>
+                            <th class="table-type">状态</th>
+                            <th class="table-set">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="vo in package_list">
+                            <td class="text-center"><a href="#" v-html="vo.username"></a></td>
+                            <td class="text-center">
+                                <eq name="vo.out_img_id" value="0">
+                                    无
+                                    <else/>
+                                    <img style="height: 60px;width: 80px;cursor: pointer;"
+                                         @click="showImg"
+                                         :src="'__ROOT__'+ vo.out_img_path" alt="">
+                                </eq>
+                            </td>
+                            <td>
+                                <strong style="color: dodgerblue" v-html="vo.yun_no"></strong>
+                                <br>
+                                <span v-html="vo.company_name"></span>
+                            </td>
+                            <td>
+                                <p style="margin: 0;line-height: 20px">提货码：<strong
+                                        class="ey-c-warning" v-html="vo.get_no"></strong></p>
+                                <p style="margin: 0;line-height: 20px">姓名：{{vo.get_name}}</p>
+                                <p style="margin: 0;line-height: 20px">手机号：{{vo.get_phone}}</p>
+                            </td>
+                            <td>{$vo.get_address}</td>
+                            <td v-if="vo.package_type_id==0">
+                                <span v-html="vo.package_type_text"></span>
+                            </td>
+                            <td v-if="vo.package_type_id!=0">
+                                <!--获取-->
+                                <span v-html="vo.package_type_text"></span>
+                            </td>
+                            <td>{$vo.push_time|date="Y-m-d H:i:s",###}</td>
+                            <td>{$vo.pop_time|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                                <eq name="vo.status" value="0">
+                                    <span class="am-badge am-badge-danger">已到站</span>
+                                </eq>
+                                <eq name="vo.status" value="2">
+                                    <span>移库</span>
+                                </eq>
+                                <eq name="vo.status" value="5">
+                                    <span class="am-badge am-badge-success">已出库</span>
+                                </eq>
+                            </td>
+                            <td>
+                                <div class="am-dropdown" data-am-dropdown>
+                                    <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle"
+                                            data-am-dropdown-toggle><span class="am-icon-cog"></span> <span
+                                            class="am-icon-caret-down"></span></button>
+                                    <ul class="am-dropdown-content">
+                                        <li>
+                                            <a href="{:U('package/edit_package',array('id'=>$vo['id']))}">1. 提货</a>
+                                        </li>
+                                        <li>
+                                            <a href="{:U('package/edit_package',array('id'=>$vo['id']))}">1. 修改</a>
+                                        </li>
+                                        <li>
+                                            <a href="{:U('package/del_package',array('ids'=>$vo['id']))}">4. 删除</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="page">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        seajs.use(['vue'], function () {
+            var p = parseInt("{$p}");
+            var api_url = "{:U('package/api_get_package')}";
+            var vm = new Vue({
+                data: {
+                    search: {},
+                    package_list: [],
+                    page: {p: p},
+                },
+                methods: {
+                    showImg: function () {
+
+                    },
+                    getPackageData: function () {
+                        $.post(api_url, {search: this.$data.search, page: this.$data.page}, function (ret) {
+                            if (ret.status == 1) {
+                                var data = ret.data.package_list;
+                                data.forEach(function (item) {
+                                    vm.package_list.push(item);
+                                });
+                            }
+                        });
+                    }
+                },
+                mounted: function () {
+                    this.getPackageData();
+                }
+            }).$mount("#package-app");
+        });
+    </script>
+</block>

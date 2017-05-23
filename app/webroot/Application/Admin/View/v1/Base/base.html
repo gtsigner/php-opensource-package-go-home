@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{:C('WEB_SITE_TITLE')}-后台管理系统</title>
+    <meta name="renderer" content="webkit">
+
+    <script src="/libs/seajs-3.0.0/sea.js"></script>
+    <script src="/libs/seajs-3.0.0/sea-plugin.js"></script>
+    <script src="__THEME__/sea-conf.js"></script>
+    <link rel="alternate icon" type="image/png" href="__THEME__/i/favicon.png">
+    <link rel="stylesheet" href="__THEME__/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__THEME__/css/admin.css">
+    <link rel="stylesheet" href="__THEME__/css/app.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <strong>{:C('WEB_SITE_TITLE')}</strong>
+        <small>后台管理</small>
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+        <!--    <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span
+                    class="am-badge am-badge-warning">5</span></a></li>-->
+        <li class="am-dropdown" data-am-dropdown>
+            <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+            </a>
+            <ul class="am-dropdown-content">
+                <li><a href="{:U('adminer/reset_pwd')}"><span class="am-icon-user"></span> 修改密码</a></li>
+                <li><a href="{:U('adminer/logout')}"><span class="am-icon-power-off"></span> 注销系统</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list">
+                <li><a href="__ROOT__/admin.php"><span class="am-icon-home"></span> 首页</a></li>
+                <!-- <li class="admin-parent">
+                     <a class="am-cf" data-am-collapse="{target: '#role-nav'}"><span class="am-icon-user"></span>
+                         权限管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                     <ul class="am-list am-collapse admin-sidebar-sub" id="role-nav">
+                         <li>
+                             <a href="{:U('adminer/admin_list')}">
+                                 <span class="am-icon-puzzle-piece"> </span> 管理员
+                             </a>
+                         </li>
+                         <li>
+                             <a href="{:U('adminer/group_list')}">
+                                 <span class="am-icon-puzzle-piece"> </span> 管理分组
+                             </a>
+                         </li>
+                         <li>
+                             <a href="{:U('adminer/menu_list')}">
+                                 <span class="am-icon-user"> </span> 权限规则
+                             </a>
+                         </li>
+                     </ul>
+                 </li>-->
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#user-nav'}"><span class="am-icon-user"></span>
+                        门店管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="user-nav">
+                        <li>
+                            <a href="{:U('User/index')}">
+                                <span class="am-icon-puzzle-piece"> </span> 门店资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('User/sms_list')}">
+                                <span class="am-icon-user"> </span> 短信余额
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('User/notice_list')}">
+                                <span class="am-icon-puzzle-piece"> </span> 消息通知
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#package-nav'}"><span class="am-icon-building"></span>
+                        包裹管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="package-nav">
+                        <li><a href="{:U('package/index')}"><span class="am-icon-puzzle-piece"></span> 快速查件</a></li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#model-nav'}"><span class="am-icon-file"></span>
+                        模型配置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="model-nav">
+                        <li>
+                            <a href="{:U('express/company_list')}" class="am-cf">
+                                <span class="am-icon-puzzle-piece"></span> 物流公司
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('package/type_list')}">
+                                <span class="am-icon-puzzle-piece"></span> 包裹类型
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#sms-nav'}"><span class="am-icon-bell"></span>
+                        短信管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="sms-nav">
+                        <li>
+                            <a href="{:U('sms/tpl_list')}">
+                                <span class="am-icon-puzzle-piece"></span> 所有模版
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('sms/tpl_list?status=0')}">
+                                <span class="am-icon-puzzle-piece"></span> 待审模版
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('sms/tpl_list?status=1')}">
+                                <span class="am-icon-puzzle-piece"></span> 可用模版
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('sms/send_log')}">
+                                <span class="am-icon-puzzle-piece"></span> 发送记录
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('sms/user_payin')}">
+                                <span class="am-icon-puzzle-piece"></span> 会员充值
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#wechat-nav'}"> <span class="am-icon-wechat"> </span>
+                        微信管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="wechat-nav">
+                        <li>
+                            <a href="{:U('WeMenu/menu_list')}">
+                                <span class="am-icon-puzzle-piece"></span> 微信菜单
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('WeUser/index')}">
+                                <span class="am-icon-puzzle-piece"></span> 会员列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('Wechat/send_log')}">
+                                <span class="am-icon-puzzle-piece"></span> 微信通知
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#sender-nav'}"> <span class="am-icon-tags"> </span>
+                        寄件人统计 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="sender-nav">
+                        <li>
+                            <a href="{:U('sender/index')}" class="am-cf">
+                                <span class="am-icon-puzzle-piece"></span> 寄件人数据
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#app-nav'}"> <span class="am-icon-android"> </span>
+                        APP管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="app-nav">
+                        <li>
+                            <a href="{:U('app/banner')}">
+                                <span class="am-icon-list"></span> 广告管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('app/update')}">
+                                <span class="am-icon-undo"></span> APP更新
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('app/tokens')}">
+                                <span class="am-icon-header"></span> 登陆Token
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#setting-nav'}"> <span class="am-icon-cog"> </span>
+                        系统设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="setting-nav">
+                        <li>
+                            <a href="{:U('config/total')}">
+                                <span class="am-icon-puzzle-piece"></span> 站点设置
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>成都易猿网络科技开发。—— zhaojunlike</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content">
+        <block name="content">
+        </block>
+        <footer class="admin-content-footer">
+            <hr>
+            <p class="am-padding-left">© 2016 成都易猿网络科技版权所有.</p>
+        </footer>
+    </div>
+    <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+   data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+
+<script>
+    seajs.use('layerCss');//css
+
+    seajs.use(['layer'], function () {
+        seajs.use('__THEME__/js/amazeui.min.js');
+        seajs.use('__THEME__/js/app.js');
+
+        $("{$_nav_show_id}").addClass("am-in");
+
+        //异步表单
+        $(".ey-simple-ajax-form").bind("submit", function (e) {
+            e.preventDefault();
+            $.post($(this).attr('action'), $(this).serialize(), function (ret) {
+                layer.msg(ret.info);
+                if (ret.status == 1) {
+                    setTimeout(function () {
+                        window.location.href = ret.url;
+                    }, 2000);
+                }
+            });
+        });
+        //异步确认链接
+        $(".ey-ajax-confirm-href").bind("click", function (e) {
+            e.preventDefault();
+            var tip = $(this).attr("data-tip");
+            if (confirm(tip)) {
+                $.get($(this).attr('href'), function (ret) {
+                    layer.msg(ret.info);
+                    if (ret.status == 1) {
+                        //remove
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+            }
+        });
+
+        //批量提交ID
+        $(".ey-ajax-check-item-send").bind("click", function (e) {
+            e.preventDefault();
+            var tip = $(this).attr("data-tip");
+            if (confirm(tip)) {
+                //获取属性值
+                var ids = $.eyGetCheckItemVal($(this).attr("data-item-name"));
+                $.post($(this).attr('href'), {ids: ids}, function (ret) {
+                    layer.msg(ret.info);
+                    if (ret.status == 1) {
+                        //remove
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+            }
+
+        });
+    });
+
+    seajs.use(['jqueryCheckALL'], function () {
+        //初始化全选
+        $.eyCheckAll(".check-all", ".check-item");
+    });
+</script>
+</body>
+</html>

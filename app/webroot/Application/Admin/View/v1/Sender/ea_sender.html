@@ -1,0 +1,51 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">添加或者编辑信息</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="__SELF__">
+                        <input type="hidden" name="id" value="{$info.id}">
+                        <div class="am-form-group">
+                            <label>姓名</label>
+                            <input type="text" name="name" value="{$info.name}" placeholder="姓名">
+                        </div>
+                        <div class="am-form-group">
+                            <label>手机号</label>
+                            <input type="tel" name="phone" value="{$info.phone}" placeholder="手机号">
+                        </div>
+                        <div class="am-form-group">
+                            <label>门号</label>
+                            <input type="text" name="address" value="{$info.address}" placeholder="地址">
+                        </div>
+                        <div class="am-form-group">
+                            <label>是否疑难用户</label>
+                            <select name="sender_type">
+                                <eq name="info.sender_type" value="0">
+                                    <option value="0" selected="selected">否</option>
+                                    <else/>
+                                    <option value="0">否</option>
+                                </eq>
+                                <eq name="info.sender_type" value="1">
+                                    <option value="1" selected="selected">是</option>
+                                    <else/>
+                                    <option value="1">是</option>
+                                </eq>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

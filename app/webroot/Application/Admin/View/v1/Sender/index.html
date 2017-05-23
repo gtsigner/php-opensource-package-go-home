@@ -1,0 +1,157 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">寄件人收集</strong> /
+                <small>寄件人数据</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g" style="margin: 10px;">
+            <form action="{:U('sender/index')}" class="am-form-inline ey-search-form" role="form">
+                <div class="am-u-sm-10">
+                    <div class="am-u-sm-12" style="margin-top: 5px">
+                        <div class="am-form-group ">
+                            <label for="" class="am-form-label">联系电话</label>
+                            <input type="text"
+                                   name="phone"
+                                   value="{$search.phone}"
+                                   class="am-form-field" placeholder="">
+                        </div>
+                        <div class="am-form-group ">
+                            <label for="" class="am-form-label">姓名</label>
+                            <input type="text"
+                                   name="name"
+                                   value="{$search.name}"
+                                   class="am-form-field" placeholder="">
+                        </div>
+                        <div class="am-form-group ey-date-picker">
+                            <label for="" class="am-form-label">开始日期</label>
+                            <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+                                <input type="text"
+                                       name="start_date"
+                                       class="am-form-field" placeholder="开始"
+                                       value="{$search.start_date|default=date('Y-m-d')}">
+                                <span class="am-input-group-btn am-datepicker-add-on">
+                            <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+                            </button>
+                            </span>
+                            </div>
+                            <label for="" class="am-form-label">结束日期</label>
+                            <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+                                <input type="text"
+                                       name="end_date"
+                                       class="am-form-field" placeholder="结束"
+                                       value="{$search.end_date|default=date('Y-m-d',strtotime('+1day'))}">
+                                <span class="am-input-group-btn am-datepicker-add-on">
+                            <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span>
+                            </button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-2 text-left">
+                    <button type="submit" style="margin: 5px" class="am-btn am-btn-danger">快速查询</button>
+                    <a href="{:U('sender/index')}" style="margin: 5px" class="am-btn am-btn-warning">重置查询</a>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <a href="{:U('sender/add_sender')}"
+                           class="am-btn am-btn-default am-btn-xs am-btn-success">
+                            <span class="am-icon-user"></span> 添加用户
+                        </a>
+                        <a href="{:U('sender/del_sender')}"
+                           class="am-btn am-btn-default am-btn-xs am-btn-danger ey-ajax-check-item-send"
+                           data-item-name="data-id"
+                           data-tip="确认删除么？">
+                            <span class="am-icon-trash-o"></span> 批量删除
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="table-check"><input type="checkbox" class="check-all"/></th>
+                            <th class="table-id">ID</th>
+                            <th class="table-title">姓名</th>
+                            <th class="table-title">手机号</th>
+                            <th class="table-title">门号</th>
+                            <th class="table-title">创建时间</th>
+                            <th class="table-title">包裹总数</th>
+                            <th class="table-title">用户类型</th>
+                            <th class="table-set">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="sender_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="sender_list" id="vo">
+                            <tr>
+                                <td><input type="checkbox" class="check-item" data-id="{$vo.id}"/></td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.name}</a></td>
+                                <td>{$vo.phone}</td>
+                                <td>{$vo.address}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td><strong>{$vo.send_count}</strong></td>
+                                <td>
+                                    <eq name="vo.sender_type" value="1">
+                                        <label for="" class="am-badge am-badge-danger">疑难用户</label>
+                                        <else/>
+                                        <label for="" class="am-badge am-badge-success">正常用户</label>
+                                    </eq>
+                                </td>
+                                <td>
+                                    <div class="am-dropdown" data-am-dropdown>
+                                        <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle"
+                                                data-am-dropdown-toggle><span class="am-icon-cog"></span> <span
+                                                class="am-icon-caret-down"></span></button>
+                                        <ul class="am-dropdown-content">
+                                            <li>
+                                                <a href="{:U('sender/edit_sender',array('id'=>$vo['id']))}">
+                                                    <span class="am-icon-edit"></span>
+                                                    编辑
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{:U('sender/del_sender',array('ids'=>$vo['id']))}"
+                                                   class=" ey-ajax-confirm-href"
+                                                   data-tip="确认删除么？">
+                                                    <span class="am-icon-trash-o"></span> 删除
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <div class="page">
+                            {$page}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>

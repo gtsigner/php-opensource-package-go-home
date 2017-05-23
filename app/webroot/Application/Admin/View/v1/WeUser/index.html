@@ -1,0 +1,79 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">微信管理</strong> /
+                <small>会员绑定</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g" style="margin: 10px;">
+            <form action="{:U('WeUser/index')}" class="am-form-inline ey-search-form" role="form">
+                <div class="am-u-sm-10">
+                    <div class="am-u-sm-12" style="margin-top: 5px">
+                        <div class="am-form-group ">
+                            <label for="" class="am-form-label">联系电话</label>
+                            <input type="text"
+                                   name="phone"
+                                   value="{$search.phone}"
+                                   class="am-form-field" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-2 text-left">
+                    <button type="submit" style="margin: 5px" class="am-btn am-btn-danger">快速查询</button>
+                    <a href="{:U('WeUser/index')}" style="margin: 5px" class="am-btn am-btn-warning">重置查询</a>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="table-check"><input type="checkbox" class="check-all"/></th>
+                            <th class="table-id">ID</th>
+                            <th class="table-title">OpenID</th>
+                            <th class="table-title">手机号</th>
+                            <th class="table-title">创建时间</th>
+                            <th class="table-title">用户类型</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="data_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="data_list" id="vo">
+                            <tr>
+                                <td><input type="checkbox" class="check-item" data-id="{$vo.id}"/></td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.openid}</a></td>
+                                <td>{$vo.phone}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    <eq name="vo.sender_type" value="1">
+                                        <label for="" class="am-badge am-badge-danger">疑难用户</label>
+                                        <else/>
+                                        <label for="" class="am-badge am-badge-success">正常用户</label>
+                                    </eq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <div class="page">
+                            {$page}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>

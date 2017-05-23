@@ -1,0 +1,119 @@
+<!--加载 Start-->
+<div id="loadingBox" class=loading-box>
+    <style>
+        .loading-box .ph1, .ph2 {
+            text-align: center;
+            color: #0aa6e3;
+            font: 16px/1.5 Helvetica;
+            font-family: "Helvetica,微软雅黑,宋体";
+            position: relative;
+            top: -76px;
+        }
+
+        .loading-box .ph2 {
+            font-weight: normal;
+            font-size: 14px;
+            margin-top: 8px;
+            color: #95999d;
+        }
+
+        .loading-box {
+            display: none;
+            opacity: 1;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: #F7F7F7;
+            padding-top: 40%;
+            z-index: 10000000;
+        }
+
+        .loading-box .spinner {
+            position: relative;
+            height: 100px;
+            width: 100px;
+            margin: -50px auto 0;
+        }
+
+        .loading-box .spinner i {
+            background: #0aa6e3;
+            border-radius: 100%;
+            height: 10px;
+            left: 30px;
+            position: absolute;
+            top: 45px;
+            width: 40px;
+        }
+    </style>
+    <div id="spinner" class=spinner>
+        <i class="p1"></i><i class="p2"></i><i class="p3"></i>
+        <i class="p4"></i><i class="p5"></i><i class="p6"></i>
+        <i class="p7"></i><i class="p8"></i><i class="p9"></i>
+        <i class="p10"></i><i class="p11"></i><i class="p12"></i>
+    </div>
+    <div class="ph1">易猿网络</div>
+    <div class="ph2">Loading...</div>
+    <script type="text/javascript">
+        // {* 默认 #preloader 需要隐藏，init()最后再显示出来 *}
+        !function () {
+
+            function getById(id) {
+                return document.getElementById(id)
+            }
+
+            var deg = 0, tm = null;
+            // windows 可以区域高
+            var wh = document[document.compatMode == "CSS1Compat" ? "documentElement" : "body"].clientHeight;
+            var loadingBox = getById("loadingBox");
+            loadingBox.style.paddingTop = ~~(wh * 0.38) + "px";
+            function rotate(angle) {
+                var pl = getById('spinner'), s = pl.style, t = 'scale(0.5) rotate(' + deg + 'deg)';
+                s['-ms-transform'] = s['-o-transform'] = s.MozTransform = s.WebkitTransform = s.transform = t;
+                deg += angle;
+                deg = (deg + 360) % 360;
+                tm = window.setTimeout(function () {
+                    rotate(angle)
+                }, 120);
+            }
+
+            function init() {
+                var spinner = getById("spinner")
+                        , balls = spinner.getElementsByTagName("i")
+                        , len = balls.length
+                        , angle = 360 / len
+                        , diffOpacity = 0.07
+                        , minO = 1 - (diffOpacity * len)
+                        , deg = 0;
+                for (var i = 0, t, s; i < len; i++) {
+                    t = ["rotate(", i * angle, "deg) translate(0, -120px)"].join('');
+                    s = balls[i].style;
+                    s['-ms-transform'] = s['-o-transform'] = s.MozTransform = s.WebkitTransform = s.transform = t;
+                    s.opacity = (minO + diffOpacity * i);
+                }
+                loadingBox.style.display = "block";
+                rotate(angle);
+            }
+
+            window.removeLoadBox = function (g) {
+                if (g == 1) {
+                    getById("loadingBox").style.display = "none";
+                } else {
+                    $("#loadingBox").animate({opacity: 0}, 600, 'ease-out', function () {
+                        clearTimeout(tm);
+                        $(this).remove();
+                    });
+
+//                    $("#loadingBox").fadeOut(600, function () {
+//                        clearTimeout(tm);
+//                        $(this).remove();
+//                    })
+                }
+            };
+            init();
+        }();
+
+
+    </script>
+</div>

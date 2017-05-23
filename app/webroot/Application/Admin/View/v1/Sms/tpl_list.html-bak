@@ -1,0 +1,138 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">短信管理</strong> /
+                <small>模版审核</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-6" id="smsTplApp">
+                <div class="am-btn-group am-btn-group-xs">
+                    <a class="am-btn am-btn-success" id="accept-btn">
+                        <span class="am-icon-archive"></span> 通过
+                    </a>
+                    <a class="am-btn am-btn-warning" id="ban-btn">
+                        <span class="am-icon-archive"></span> 否决
+                    </a>
+                    <a class="am-btn am-btn-danger" id="del-btn">
+                        <span class="am-icon-trash-o"></span> 删除
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="check-all">
+                            </th>
+                            <th class="table-id">ID</th>
+                            <th class="table-title">门店账号</th>
+                            <th class="table-title">模版</th>
+                            <th class="table-title">创建日期</th>
+                            <th class="table-title">备注</th>
+                            <th class="table-title">状态</th>
+                            <th class="table-set">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="tpl_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="tpl_list" id="vo">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="check-item" data-id="{$vo.id}">
+                                </td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.username}</a></td>
+                                <td>{$vo.tpl_content}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td>{$vo.u_mark}</td>
+                                <td>
+                                    <eq name="vo.status" value="0">
+                                        <span class="am-badge am-badge-warning">等待审核</span>
+                                    </eq>
+                                    <eq name="vo.status" value="1">
+                                        <span class="am-badge am-badge-success">可用</span>
+                                    </eq>
+                                    <eq name="vo.status" value="2">
+                                        <span class="am-badge am-badge-danger">审核不通过</span>
+                                    </eq>
+                                </td>
+                                <td>
+                                    <a class="am-btn am-btn-danger am-btn-xs ey-ajax-confirm-href"
+                                       data-tip="您确认删除么？"
+                                       href="{:U('sms/del_tpl',array('ids'=>$vo['id']))}"> <span
+                                            class="am-icon-trash-o"></span> 删除</a>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="page">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+            var actions = {
+                delTpl: function () {
+                    var ids = $.eyGetCheckItemVal("data-id");
+                    console.log(ids);
+                    if (!confirm("确认么?")) return;
+                    $.post("{:U('sms/del_tpl')}", {ids: ids}, function (ret) {
+                        if (ret.status == 1) {
+                            window.location.reload();
+                        } else {
+                            layer.msg(ret.info);
+                        }
+                    });
+                },
+                noAcceptTpl: function () {
+                    layer.prompt({title: '请输入不通过理由，并确认', formType: 2}, function (val, index) {
+                        var ids = $.eyGetCheckItemVal("data-id");
+                        $.post("{:U('sms/status_tpl')}", {ids: ids, a_mark: val, status: 2}, function (ret) {
+                            if (ret.status == 1) {
+                                window.location.reload();
+                            } else {
+                                layer.msg(ret.info);
+                            }
+                        });
+                        layer.close(index);
+                    });
+                },
+                acceptTpl: function () {
+                    var ids = $.eyGetCheckItemVal("data-id");
+                    if (!confirm("确认么?")) return;
+                    $.post("{:U('sms/status_tpl')}", {ids: ids, status: 1}, function (ret) {
+                        if (ret.status == 1) {
+                            window.location.reload();
+                        } else {
+                            layer.msg(ret.info);
+                        }
+                    });
+                },
+            };
+            //init listen
+
+            $("#del-btn").click(actions.delTpl);
+            $("#accept-btn").click(actions.acceptTpl);
+            $("#ban-btn").click(actions.noAcceptTpl);
+
+        });
+
+    </script>
+</block>

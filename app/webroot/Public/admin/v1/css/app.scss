@@ -1,0 +1,64 @@
+@import "ey-ui";
+
+.am-btn {
+  margin: 0 5px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.am-panel-default {
+  margin-top: 20px;
+}
+
+.page {
+  text-align: center;
+}
+
+.admin-content {
+}
+
+.ey-search-form {
+  .am-form-group {
+    line-height: 30px;
+    label {
+      width: 75px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: right;
+    }
+    input, select, textarea, .am-selected {
+      width: 170px;
+      height: 30px;
+      border-color: #d1d1d1;
+      .am-btn {
+        margin: 0;
+      }
+    }
+  }
+  .ey-date-picker {
+    .am-u-sm-10 {
+      padding: 0px;
+    }
+    .am-u-sm-12 {
+      padding: 0;
+    }
+    .am-input-group {
+      display: inline-block;
+      .am-form-field {
+        width: 130px;
+      }
+      .am-input-group-btn {
+        .am-btn {
+          height: 30px;
+          width: 40px;
+          line-height: 30px;
+          margin: 0px;
+          padding: 0px;
+        }
+      }
+    }
+
+  }
+}

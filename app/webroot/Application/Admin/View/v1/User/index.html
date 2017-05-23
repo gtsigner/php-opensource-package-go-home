@@ -1,0 +1,205 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body" id="user-app">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">门店管理</strong> /
+                <small>门店数据</small>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <a href="{:U('user/add_user')}" class="am-btn am-btn-default">
+                            <span class="am-icon-plus"></span>
+                            新增
+                        </a>
+                        <button type="button" class="am-btn am-btn-success" @click="acceptUser">
+                            <span class="am-icon-archive"></span> 审核
+                        </button>
+                        <button type="button" class="am-btn am-btn-warning" @click="banUser">
+                            <span class="am-icon-archive"></span> 封号
+                        </button>
+                        <button type="button" class="am-btn am-btn-danger" @click="delUser">
+                            <span class="am-icon-trash-o"></span> 删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="check-all">
+                            </th>
+                            <th class="table-id">ID</th>
+                            <th class="table-title">门店登陆账号</th>
+                            <th class="table-title">门店名称</th>
+                            <th class="table-type">手机号</th>
+                            <th class="table-date">创建日期</th>
+                            <th class="table-type">用户类型</th>
+                            <th class="table-type">地址</th>
+                            <th class="table-type">短信通知</th>
+                            <th class="table-type">微信通知</th>
+                            <th class="table-type">门店状态</th>
+                            <th class="table-set">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="user_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="user_list" id="vo">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="check-item" data-id="{$vo.id}">
+                                </td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.username}</a></td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.phone}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    <eq name="vo.group_type" value="1">
+                                        <span class="am-text-danger">快递员</span>
+                                    </eq>
+                                    <eq name="vo.group_type" value="0">
+                                        <span class="am-text-success">门店站</span>
+                                    </eq>
+                                </td>
+                                <td>{$vo.address_desc}</td>
+                                <td>
+                                    <eq name="vo.sms_notice_status" value="1">
+                                        <span class="am-badge am-badge-success">开启</span>
+                                    </eq>
+                                    <eq name="vo.sms_notice_status" value="0">
+                                        <span class="am-badge am-badge-danger">关闭</span>
+                                    </eq>
+                                </td>
+                                <td>
+                                    <eq name="vo.wx_notice_status" value="1">
+                                        <span class="am-badge am-badge-success">开启</span>
+                                    </eq>
+                                    <eq name="vo.wx_notice_status" value="0">
+                                        <span class="am-badge am-badge-danger">关闭</span>
+                                    </eq>
+                                </td>
+                                <td>
+                                    <eq name="vo.status" value="1">
+                                        <span class="am-badge am-badge-success">可用</span>
+                                    </eq>
+                                    <eq name="vo.status" value="0">
+                                        <span class="am-badge am-badge-warning">待审核</span>
+                                    </eq>
+                                    <eq name="vo.status" value="4">
+                                        <span class="am-badge am-badge-danger">封号</span>
+                                    </eq>
+                                </td>
+
+                                <td>
+
+                                    <div class="am-dropdown" data-am-dropdown>
+                                        <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle"
+                                                data-am-dropdown-toggle><span class="am-icon-cog"></span> <span
+                                                class="am-icon-caret-down"></span></button>
+                                        <ul class="am-dropdown-content">
+                                            <li>
+                                                <a href="{:U('user/edit_user',array('id'=>$vo['id']))}">1. 编辑</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn" style="cursor: pointer" @click="resetPwd({$vo.id})">
+                                                    2. 修改登陆密码</a>
+                                            </li>
+                                            <li>
+                                                <a>2. 包裹</a>
+                                            </li>
+                                            <li>
+                                                <a href="{:U('user/payin_sms',array('uid'=>$vo['id']))}">3. 短信充值</a>
+                                            </li>
+                                            <li>
+                                                <a class="ey-ajax-confirm-href"
+                                                   href="{:U('user/del_user',array('ids'=>$vo['id']))}">4. 删除</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="page">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use(['vue'], function () {
+            var status_user_Api = "{:U('user/status_user')}";
+            var vm = new Vue({
+                data: {},
+                methods: {
+                    delUser: function () {
+                        var ids = $.eyGetCheckItemVal("data-id");
+                        console.log(ids);
+                        if (!confirm("确认么?")) return;
+                        $.post("{:U('user/del_user')}", {ids: ids}, function (ret) {
+                            if (ret.status == 1) {
+                                window.location.reload();
+                            } else {
+                                layer.msg(ret.info);
+                            }
+                        });
+                    },
+                    banUser: function () {
+                        var ids = $.eyGetCheckItemVal("data-id");
+                        if (!confirm("确认么?")) return;
+                        $.post(status_user_Api, {ids: ids, status: 4}, function (ret) {
+                            if (ret.status == 1) {
+                                window.location.reload();
+                            } else {
+                                layer.msg(ret.info);
+                            }
+                        });
+                    },
+                    acceptUser: function () {
+                        var ids = $.eyGetCheckItemVal("data-id");
+                        if (!confirm("确认么?")) return;
+                        $.post(status_user_Api, {ids: ids, status: 1}, function (ret) {
+                            if (ret.status == 1) {
+                                window.location.reload();
+                            } else {
+                                layer.msg(ret.info);
+                            }
+                        });
+                    },
+                    resetPwd: function (uid) {
+                        layer.prompt({title: '输入新密码，并确认', formType: 2}, function (val, index) {
+                            //
+                            $.post("{:U('user/reset_pwd')}", {uid: uid, pwd: val}, function (ret) {
+                                layer.msg(ret.info);
+                            });
+                            layer.close(index);
+                        });
+                    }
+                },
+                mounted: function () {
+                    //重新挂载事件
+                    $.eyCheckAll(".check-all", ".check-item");
+                }
+            }).$mount("#user-app");
+        });
+    </script>
+</block>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{:C('WEB_SITE_TITLE')}-管理员登陆</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script src="/libs/seajs-3.0.0/sea.js"></script>
+    <script src="/libs/seajs-3.0.0/sea-plugin.js"></script>
+    <script src="__THEME__/sea-conf.js"></script>
+    <link rel="alternate icon" type="image/png" href="__THEME__/i/favicon.png">
+    <link rel="stylesheet" href="__THEME__/css/amazeui.min.css"/>
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .header p {
+            font-size: 14px;
+        }
+
+        .am-pull-right {
+            text-align: right;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="am-g">
+        <h1>{:C('WEB_SITE_TITLE')}-后台管理系统</h1>
+    </div>
+    <hr/>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-3 am-u-md-4 am-u-sm-centered">
+        <form method="post" class="am-form">
+            <label for="username">账号:</label>
+            <input type="text" name="username" id="username" value="">
+            <br>
+            <label for="password">密码:</label>
+            <input type="password" name="password" id="password" value="">
+            <br>
+            <label for="verify_code">验证码:</label>
+            <input type="text" name="verify" id="verify_code" value="">
+            <br>
+            <div class="am-pull-right">
+                <img style="cursor: pointer;" src="{:U('public/verify')}" id="verify_code_img" alt=""
+                     onclick="changeVerify();">
+                看不清？刷新点击图片
+            </div>
+            <br>
+            <br/>
+            <div class="text-center">
+                <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-lg am-btn-block">
+            </div>
+        </form>
+        <hr>
+        <p class="text-center">© 2016 成都易猿网络科技.</p>
+        <script>
+            function changeVerify() {
+                $("#verify_code_img").attr("src", "{:U('public/verify')}" + "?rand=" + Math.random());
+            }
+            seajs.use('layerCss');
+            seajs.use(['layer'], function () {
+                $("#verify_code_img").click(function () {
+                    $(this).attr("src", "{:U('public/verify')}" + "?rand=" + Math.random());
+                });
+                $(".am-form").submit(function (e) {
+                    e.preventDefault();
+                    var _self = $(this);
+                    $.post(_self.attr('action'), _self.serialize(), function (ret) {
+                        layer.msg(ret.info);
+                        if (ret.status == 1) {
+                            setTimeout(function () {
+                                window.location.href = ret.url;
+                            }, 2000);
+                        }
+                    });
+
+                });
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>

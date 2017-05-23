@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快递包裹预览</title>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="/libs/weui-1.0/style/weui.min.css">
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .container {
+            padding: 10px 5px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        .weui-badge {
+            padding: 5px;
+        }
+
+        .am-badge-success {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="container">
+    <h3 class="text-center">快递包裹预览</h3>
+    <div class="page preview js_show">
+        <div class="page__bd">
+            <div class="weui-form-preview">
+                <div class="weui-form-preview__hd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">取货码</label>
+                        <em class="weui-form-preview__value">{$data.get_no}</em>
+                    </div>
+                </div>
+                <div class="weui-form-preview__bd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">快递公司</label>
+                        <span class="weui-form-preview__value">{$data.company_name}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">运单号</label>
+                        <span class="weui-form-preview__value">{$data.yun_no}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">到站时间</label>
+                        <span class="weui-form-preview__value">{$data.push_time|date="Y-m-d H:i:s",###}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">门店地址</label>
+                        <span class="weui-form-preview__value">{$data.address_desc}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">门店电话</label>
+                        <span class="weui-form-preview__value">{$data.address_phone}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">营业时间</label>
+                        <span class="weui-form-preview__value">{$data.open_date}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">主营业务</label>
+                        <span class="weui-form-preview__value">{$data.sale_mark}</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">包裹状态</label>
+                        <span class="weui-form-preview__value">
+                               <eq name="data.status" value="0">
+                                        <span class="weui-badge am-badge-danger">已到站</span>
+                                    </eq>
+                                    <eq name="data.status" value="2">
+                                        <span class="weui-badge am-badge-primary">已移库</span>
+                                    </eq>
+                                    <eq name="data.status" value="4">
+                                        <span class="weui-badge am-badge-warning">已退件</span>
+                                    </eq>
+                                    <eq name="data.status" value="5">
+                                        <span class="weui-badge am-badge-success">已出库</span>
+                               </eq>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

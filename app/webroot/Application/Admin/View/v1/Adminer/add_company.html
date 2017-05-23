@@ -1,0 +1,32 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default" style="margin-top: 20px;">
+                <div class="am-panel-hd">添加物流公司</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="__SELF__">
+                        <input type="hidden" name="id" value="{$bean.id}">
+                        <div class="am-form-group">
+                            <label>公司名称</label>
+                            <input type="text" name="name" value="{$bean.name}" placeholder="登陆用户名">
+                        </div>
+                        <div class="am-form-group">
+                            <label>代码</label>
+                            <input type="text" name="code" value="{$bean.code}" placeholder="代码">
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

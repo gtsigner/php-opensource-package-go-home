@@ -1,0 +1,55 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">推送新的更新</div>
+                <div class="am-panel-bd">
+                    <form class="am-form"
+                          method="post"
+                          action="__SELF__"
+                          enctype="multipart/form-data">
+                        <div class="am-form-group">
+                            <label>标题</label>
+                            <input type="text" name="title" value="{$info.title}" placeholder="">
+                        </div>
+                        <div class="am-form-group">
+                            <label>APP类型</label>
+                            <select name="os_type">
+                                <option value="0">Android OS</option>
+                                <option value="1">Iphone OS</option>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <label>版本号
+                                <small>(请大于历史版本,否则不会自动更新)</small>
+                            </label>
+                            <input type="number" name="version_code" value="{$info.version_code}" placeholder="">
+                        </div>
+                        <div class="am-form-group">
+                            <label>版本名称</label>
+                            <input type="text" name="version_name" value="{$info.version_name}" placeholder="">
+                        </div>
+                        <div class="am-form-group">
+                            <label>更新描述</label>
+                            <textarea name="desc" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="am-form-group">
+                            <label>APP文件上传</label>
+                            <input type="file" name="app_file">
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

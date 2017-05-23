@@ -1,0 +1,51 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">添加门店</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="{:U('user/add_user')}">
+                        <div class="am-form-group">
+                            <label>用户名</label>
+                            <input type="text" name="username" class="" placeholder="登陆用户名">
+                        </div>
+
+                        <div class="am-form-group">
+                            <label>密码</label>
+                            <input type="password" name="password" class="" placeholder="登陆密码">
+                        </div>
+                        <div class="am-form-group">
+                            <label>手机号</label>
+                            <input type="number" name="phone" class="" placeholder="手机号">
+                        </div>
+                        <div class="am-form-group">
+                            <label>用户类型</label>
+                            <select name="status">
+                                <option value="0">未审核</option>
+                                <option value="1">审核通过</option>
+                                <option value="4">已封号</option>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <label>门店状态（不同APP访问权限）</label>
+                            <select name="group_type">
+                                <option value="0">门店账号</option>
+                                <option value="1">快递员账号</option>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

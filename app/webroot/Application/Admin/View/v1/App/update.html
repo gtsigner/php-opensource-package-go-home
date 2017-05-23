@@ -1,0 +1,85 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">APP管理</strong> /
+                <small>APP更新</small>
+            </div>
+        </div>
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <a href="{:U('app/push')}"
+                           class="am-btn am-btn-default am-btn-xs am-btn-success">
+                            <span class="am-icon-adn"></span> 推送更新
+                        </a>
+                        <a href="{:U('app/del_app')}"
+                           class="am-btn am-btn-default am-btn-xs am-btn-danger ey-ajax-check-item-send"
+                           data-item-name="data-id"
+                           data-tip="确认删除么？">
+                            <span class="am-icon-trash-o"></span> 批量删除
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-g" style="margin-top: 10px;">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-bordered am-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="table-check"><input type="checkbox" class="check-all"/></th>
+                            <th class="table-id">ID</th>
+                            <th class="table-title">标题</th>
+                            <th class="table-title">系统类型</th>
+                            <th class="table-title">版本号</th>
+                            <th class="table-title">版本名称</th>
+                            <th class="table-title">更新描述</th>
+                            <th class="table-title">创建时间</th>
+                            <th class="table-title">下载次数</th>
+                            <th class="table-title">下载</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <empty name="data_list">
+                            <tr>
+                                <td colspan="20" class="text-center">
+                                    <span class="am-text-danger">OH,这里啥子都没得,请等会儿.</span>
+                                </td>
+                            </tr>
+                        </empty>
+                        <volist name="data_list" id="vo">
+                            <tr>
+                                <td><input type="checkbox" class="check-item" data-id="{$vo.id}"/></td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.title}</a></td>
+                                <td>
+                                    <eq name="vo.os_type" value="0">
+                                        <label for="" class="am-badge am-badge-danger">Android OS</label>
+                                        <else/>
+                                        <label for="" class="am-badge am-badge-success">Iphone OS</label>
+                                    </eq>
+                                </td>
+                                <td>{$vo.version_code}</td>
+                                <td>{$vo.version_name}</td>
+                                <td>{$vo.desc}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td><strong>{$vo.down_count}</strong></td>
+                                <td><a href="__ROOT__/{$vo.app_path}">下载</a></td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <div class="page">
+                            {$page}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>

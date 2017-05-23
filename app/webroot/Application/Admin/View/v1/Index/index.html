@@ -1,0 +1,60 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body" id="index-app">
+        <div class="am-cf am-padding">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> /
+                <small>仪表盘</small>
+            </div>
+        </div>
+
+        <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+            <li><a href="#" class="am-text-success"><span
+                    class="am-icon-btn am-icon-file-text"></span><br/>寄件人总数<br/><span
+                    v-html="total.sender_count"></span>人</a></li>
+            <li><a href="#" class="am-text-warning"><span
+                    class="am-icon-btn am-icon-briefcase"></span><br/>包裹流水<br/><span
+                    v-html="total.package_count"></span>件</a>
+            </li>
+            <li><a href="#" class="am-text-secondary"><span
+                    class="am-icon-btn am-icon-user-md"></span><br/>门店总数<br/><span
+                    v-html="total.home_count"></span>家</a></li>
+            <li><a href="#" class="am-text-danger"><span
+                    class="am-icon-btn am-icon-recycle"></span><br/>短信消费<br/><span v-html="total.sms_send_count"></span>条</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        seajs.use(["vue"], function () {
+
+
+            var vm = new Vue({
+                el: "#index-app",
+                data: {
+                    total: {
+                        sms_send_count: 0,
+                        home_count: 0,
+                        package_count: 0,
+                        sender_count: 0,
+                    }
+                }, methods: {
+                    getTotal: function () {
+                        var _self = this;
+                        $.get("{:U('service/api_get_total')}", function (ret) {
+                            if (ret.status == 1) {
+                                _self.$data.total = ret.data;
+                            }
+                        });
+                    },
+                    getTodayPackage: function () {
+                        //获取包裹
+
+                    }
+                },
+                mounted: function () {
+                    this.getTotal();
+                }
+            })
+
+        });
+    </script>
+</block>

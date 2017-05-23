@@ -1,0 +1,36 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">充值短信</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="{:U('user/payin_sms')}">
+                        <input type="hidden" name="uid" value="{$user.id}">
+                        <div class="am-form-group">
+                            <label>用户名</label>
+                            <input type="text" disabled="disabled" value="{$user.username}">
+                        </div>
+                        <div class="am-form-group">
+                            <label>充值中条数</label>
+                            <input type="number" name="total_count" value="100">
+                        </div>
+                        <div class="am-form-group">
+                            <label>余额条数</label>
+                            <input type="number" name="last_count" value="100">
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">确认充值</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>

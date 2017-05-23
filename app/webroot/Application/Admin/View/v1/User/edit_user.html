@@ -1,0 +1,108 @@
+<extend name="Base/base"/>
+<block name="content">
+    <div class="admin-content-body">
+        <div class="am-u-md-4 am-u-md-offset-4">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">编辑信息</div>
+                <div class="am-panel-bd">
+                    <form class="am-form ey-simple-ajax-form" method="post" action="__SELF__">
+                        <input type="hidden" name="id" value="{$user.id}">
+                        <div class="am-form-group">
+                            <label>用户名
+                                <small class="ey-c-red">初始化后不可修改</small>
+                            </label>
+                            <input type="text" name="username" value="{$user.username}" placeholder="登陆用户名" readonly>
+                        </div>
+                        <div class="am-form-group">
+                            <label>手机号</label>
+                            <input type="tel" name="phone" value="{$user.phone}" placeholder="手机号">
+                        </div>
+                        <div class="am-form-group">
+                            <label>门店名称</label>
+                            <input type="text" name="name" value="{$user.name}" placeholder="门店名称">
+                        </div>
+                        <div class="am-form-group">
+                            <label>营业时间</label>
+                            <input type="text" name="open_date" value="{$user.open_date}" placeholder="营业时间">
+                        </div>
+                        <div class="am-form-group">
+                            <label>门店地址</label>
+                            <input type="text" name="address_desc" value="{$user.address_desc}" placeholder="门店地址">
+                        </div>
+                        <div class="am-form-group">
+                            <label>身份证号</label>
+                            <input type="text" name="card_id" value="{$user.card_id}" placeholder="身份证号">
+                        </div>
+                        <div class="am-form-group">
+                            <label>真实姓名</label>
+                            <input type="text" name="card_name" value="{$user.card_name}" placeholder="登陆用户名">
+                        </div>
+                        <div class="am-form-group">
+                            <label>主营业务</label>
+                            <input type="text" name="sale_mark" value="{$user.sale_mark}" placeholder="主营业务">
+                        </div>
+                        <div class="am-form-group">
+                            <label>门店状态</label>
+                            <select name="status">
+                                <eq name="user.status" value="0">
+                                    <option value="0" selected="selected">未审核</option>
+                                    <else/>
+                                    <option value="0">未审核</option>
+                                </eq>
+                                <eq name="user.status" value="1">
+                                    <option value="1" selected="selected">审核通过</option>
+                                    <else/>
+                                    <option value="1">审核通过</option>
+                                </eq>
+                                <eq name="user.status" value="4">
+                                    <option value="4" selected="selected">已封号</option>
+                                    <else/>
+                                    <option value="4">已封号</option>
+                                </eq>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <label>是否短信通知</label>
+                            <select name="sms_notice_status">
+                                <eq name="user.sms_notice_status" value="0">
+                                    <option value="0" selected="selected">不发送</option>
+                                    <else/>
+                                    <option value="0">不发送</option>
+                                </eq>
+                                <eq name="user.sms_notice_status" value="1">
+                                    <option value="1" selected="selected">发送</option>
+                                    <else/>
+                                    <option value="1">发送</option>
+                                </eq>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <label>是否微信通知</label>
+                            <select name="wx_notice_status">
+                                <eq name="user.wx_notice_status" value="0">
+                                    <option value="0" selected="selected">不发送</option>
+                                    <else/>
+                                    <option value="0">不发送</option>
+                                </eq>
+                                <eq name="user.wx_notice_status" value="1">
+                                    <option value="1" selected="selected">发送</option>
+                                    <else/>
+                                    <option value="1">发送</option>
+                                </eq>
+                            </select>
+                        </div>
+                        <div class="am-form-group">
+                            <button type="submit" class="am-btn am-btn-block am-btn-danger">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        seajs.use([], function () {
+
+
+        });
+    </script>
+</block>
